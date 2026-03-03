@@ -1,0 +1,158 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fashion Premium - Shop Quần Áo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <h1>FASHION SHOP</h1>
+      <p>Shop quần áo full tính năng</p>
+    </div>
+    <div class="top-actions">
+      <input id="searchInput" type="text" placeholder="Tìm áo, quần, váy, hoodie..." />
+      <select id="sortSelect">
+        <option value="popular">Phổ biến</option>
+        <option value="priceAsc">Giá thấp - cao</option>
+        <option value="priceDesc">Giá cao - thấp</option>
+        <option value="rating">Đánh giá cao</option>
+      </select>
+      <button id="wishlistBtn" class="ghost-btn">Yêu thích (<span id="wishlistCount">0</span>)</button>
+      <button id="openCartBtn" class="primary-btn">Giỏ hàng (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-main">
+      <h2>MEGA FASHION SALE -70%</h2>
+      <p>Thời gian flash sale còn: <strong id="countdown">--:--:--</strong></p>
+      <button id="flashOnlyBtn" class="primary-btn">Chỉ xem Flash Sale</button>
+    </div>
+    <div class="chips" id="categoryChips">
+      <button class="chip" data-category="all">Tất cả</button>
+      <button class="chip" data-category="Áo">Áo</button>
+      <button class="chip" data-category="Quần">Quần</button>
+      <button class="chip" data-category="Váy">Váy</button>
+      <button class="chip" data-category="Hoodie">Hoodie</button>
+      <button class="chip" data-category="Set đồ">Set đồ</button>
+    </div>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <h3>Bộ lọc nâng cao</h3>
+
+      <label>Giới tính</label>
+      <select id="genderFilter">
+        <option value="all">Tất cả</option>
+        <option value="Nam">Nam</option>
+        <option value="Nữ">Nữ</option>
+        <option value="Unisex">Unisex</option>
+      </select>
+
+      <label>Size</label>
+      <select id="sizeFilter">
+        <option value="all">Tất cả</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+
+      <label>Màu sắc</label>
+      <select id="colorFilter">
+        <option value="all">Tất cả</option>
+        <option value="Đen">Đen</option>
+        <option value="Trắng">Trắng</option>
+        <option value="Xanh">Xanh</option>
+        <option value="Nâu">Nâu</option>
+        <option value="Be">Be</option>
+      </select>
+
+      <label>Giá tối đa: <span id="maxPriceText">2,000,000đ</span></label>
+      <input id="priceRange" type="range" min="100000" max="2000000" step="10000" value="2000000" />
+
+      <label>Đánh giá tối thiểu</label>
+      <select id="minRating">
+        <option value="0">Tất cả</option>
+        <option value="4">Từ 4 sao</option>
+        <option value="4.5">Từ 4.5 sao</option>
+      </select>
+
+      <label class="check"><input id="freeShipOnly" type="checkbox" /> Miễn phí vận chuyển</label>
+      <label class="check"><input id="inStockOnly" type="checkbox" /> Còn hàng</label>
+      <button id="clearFilterBtn" class="ghost-btn">Đặt lại bộ lọc</button>
+    </aside>
+
+    <section class="content">
+      <div class="section-head">
+        <h3>Sản phẩm nổi bật</h3>
+        <p id="resultCount">0 sản phẩm</p>
+      </div>
+      <div id="productGrid" class="grid"></div>
+    </section>
+  </main>
+
+  <div id="overlay" class="overlay hidden"></div>
+
+  <aside id="cartDrawer" class="drawer hidden">
+    <div class="drawer-head">
+      <h3>Giỏ hàng</h3>
+      <button id="closeCartBtn" class="icon-btn">x</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="voucher-row">
+      <input id="voucherInput" type="text" placeholder="Nhập mã giảm giá (FASHION10/FREESHIP)" />
+      <button id="applyVoucherBtn" class="ghost-btn">Áp dụng</button>
+    </div>
+    <div class="totals">
+      <div><span>Tạm tính</span><strong id="subtotal">0đ</strong></div>
+      <div><span>Giảm giá</span><strong id="discount">0đ</strong></div>
+      <div><span>Phí ship</span><strong id="shipping">0đ</strong></div>
+      <div class="grand"><span>Tổng tiền</span><strong id="total">0đ</strong></div>
+      <button id="checkoutBtn" class="primary-btn full">Thanh toán</button>
+    </div>
+  </aside>
+
+  <section class="orders">
+    <div class="section-head">
+      <h3>Lịch sử đơn hàng</h3>
+      <button id="clearOrdersBtn" class="ghost-btn">Xóa lịch sử</button>
+    </div>
+    <div id="orderList" class="order-list"></div>
+  </section>
+
+  <div id="checkoutModal" class="modal hidden">
+    <div class="modal-body">
+      <h3>Thông tin nhận hàng</h3>
+      <input id="customerName" type="text" placeholder="Họ và tên" />
+      <input id="customerPhone" type="text" placeholder="Số điện thoại" />
+      <input id="customerAddress" type="text" placeholder="Địa chỉ nhận hàng" />
+      <select id="paymentMethod">
+        <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+        <option value="Banking">Chuyển khoản</option>
+        <option value="MOMO">Ví MoMo</option>
+      </select>
+      <div class="bank-info">
+        <p><strong>Thông tin chuyển khoản shop:</strong></p>
+        <p>Ngân hàng: MB Bank</p>
+        <p>Số tài khoản: 0964812769</p>
+        <p>Chủ tài khoản: FASHION SHOP</p>
+      </div>
+      <div class="modal-actions">
+        <button id="cancelCheckoutBtn" class="ghost-btn">Hủy</button>
+        <button id="confirmCheckoutBtn" class="primary-btn">Xác nhận đặt hàng</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+
